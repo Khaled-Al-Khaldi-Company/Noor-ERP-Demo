@@ -1,0 +1,68 @@
+/* Specific dashboard styles */
+.welcome-section {
+      background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+}
+
+.stat-card {
+      transition: transform 0.3s;
+}
+
+.stat-card:hover {
+      transform: translateY(-5px);
+}
+
+.card-title {
+      font-size: 0.9rem;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+}
+
+.card-value {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+}
+
+.card-trend {
+      font-size: 0.8rem;
+      margin-top: 5px;
+}
+
+.card-trend.up {
+      color: var(--success-color);
+}
+
+.card-trend.down {
+      color: var(--danger-color);
+}
+
+.recent-transactions table {
+      width: 100%;
+      border-collapse: collapse;
+}
+
+.recent-transactions th, .recent-transactions td {
+      padding: 12px;
+      text-align: right;
+      border-bottom: 1px solid #eee;
+}
+
+.status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+}
+
+.status-badge.completed {
+      background-color: #d4edda;
+      color: #155724;
+}
+
+.status-badge.pending {
+      background-color: #fff3cd;
+      color: #856404;
+}
