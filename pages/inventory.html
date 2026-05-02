@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام نور ERP - إدارة الأصناف</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-sidebar);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .inventory-table th, .inventory-table td {
+            padding: 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .inventory-table th {
+            background-color: rgba(255, 215, 0, 0.1);
+            color: var(--primary-color);
+        }
+        .stock-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .stock-high { background-color: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .stock-low { background-color: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    </style>
+</head>
+<body class="app-body">
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-text">
+                    <span class="logo-name">نظام نور</span>
+                    <span class="logo-subtitle">ERP الكهربائيات</span>
+                </div>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html" class="nav-item"><i class="fas fa-home"></i> لوحة التحكم</a></li>
+            <li><a href="inventory.html" class="nav-item active"><i class="fas fa-boxes"></i> إدارة الأصناف</a></li>
+            <li><a href="pos.html" class="nav-item"><i class="fas fa-cash-register"></i> نقطة البيع</a></li>
+            <li><a href="sales.html" class="nav-item"><i class="fas fa-file-invoice-dollar"></i> المبيعات</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="welcome-msg">
+                <h1>إدارة الأصناف والمخزون</h1>
+                <p>عرض وتعديل كميات المنتجات في المستودع</p>
+            </div>
+            <button class="nav-item" style="background: var(--primary-color); color: var(--bg-dark); border: none; cursor: pointer;">+ إضافة صنف جديد</button>
+        </header>
+
+        <table class="inventory-table">
+            <thead>
+                <tr>
+                    <th>كود الصنف</th>
+                    <th>اسم المنتج</th>
+                    <th>التصنيف</th>
+                    <th>السعر</th>
+                    <th>الكمية المتوفرة</th>
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody id="inventory-list">
+                <!-- Data from db.js will be loaded here -->
+            </tbody>
+        </table>
+    </main>
+
+    <script src="../assets/js/db.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const list = document.getElementById('inventory-list');
+            if (window.erpDatabase) {
+                erpDatabase.products.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>#${p.id.toString().padStart(4, '0')}</td>
+                        <td>${p.name}</td>
+                        <td>${p.category}</td>
+                        <td>${p.price} ر.س</td>
+                        <td>${p.stock} قطعة</td>
+                        <td><span class="stock-badge ${p.stock > 10 ? 'stock-high' : 'stock-low'}">
+                            ${p.stock > 10 ? 'متوفر' : 'منخفض'}
+                        </span></td>
+                    `;
+                    list.appendChild(tr);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
